@@ -11,8 +11,16 @@
     "dev": "tsx watch src/main.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/main.js",
+    "chat": "tsx src/cli/chat.ts",
     "test": "tsx --test tests/**/*.test.ts"
   },
+  "bin": {
+    "piagent-chat": "bin/piagent-chat.mjs"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
   "dependencies": {
     "@fastify/cors": "^10.0.2",
     "@modelcontextprotocol/sdk": "^1.30.0",
