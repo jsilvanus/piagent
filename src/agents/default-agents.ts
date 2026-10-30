@@ -56,4 +56,47 @@ Alert operators only when actionable faults or degraded signals are detected.`,
     createdAt: '2026-10-30T12:00:00Z',
     updatedAt: '2026-10-30T12:00:00Z',
   },
+  {
+    id: 'ui-context-composer',
+    name: 'Broadcast Context UI Composer',
+    description: 'Reactive UI agent in picomposer that adapts multi-screen operator layouts to pidirector advisories, autonomous cuts, manual actions, broadcast phases, and standing UI rules.',
+    model: 'llama3.2:latest',
+    systemPrompt: `You are the Broadcast Context UI Composer for picomposer.
+Your role is to compose typed JSON UI layouts (panels, divisions, hovers, and @piecosystem/piui components) driven by what is happening in the broadcast right now:
+1. When pidirector advises a shot (advisory mode), surface a prominent advisory hover/panel with Accept/Dismiss actions and preview controls for the target camera.
+2. When pidirector directs (autonomous mode), show active shot rationale, upcoming prepared preview, and quick steering/preempt controls.
+3. When the human operator acts manually, immediately pivot the UI to manual camera/switcher controls for the active target plus a Continue AI button.
+4. During setup/preflight (idle/ready), compose a guided preflight checklist and broadcast selector.
+5. Evaluate active Standing UI Rules (e.g. adding graphics lower-third buttons during the sermon) and inject matching panels/hovers into the target screen.`,
+    priority: 'realtime',
+    tools: ['rundown_current', 'system_whoami', 'voice_status', 'perception_status'],
+    messaging: {
+      canReceiveDirect: true,
+      allowedSenders: ['*'],
+      subscriptions: ['director.intent', 'director.advisory', 'liturgy.cue', 'broadcast.phase'],
+    },
+    createdAt: '2026-10-30T12:00:00Z',
+    updatedAt: '2026-10-30T12:00:00Z',
+  },
+  {
+    id: 'ui-prompt-creator',
+    name: 'Prompted UI & Standing Rules Creator',
+    description: 'On-demand UI creator in picomposer. Not a broadcast director: responds to operator prompts to compose custom screen layouts, preflight flows, or standing UI rules.',
+    model: 'qwen2.5:7b-instruct',
+    systemPrompt: `You are the Prompted UI Creator Agent in picomposer.
+IMPORTANT: You are NOT the broadcast director. You never switch cameras or make shot decisions.
+You know the full state of the broadcast (cameras, presets, switcher, rundown sections/cues, speakers, audio, tally, pitube broadcast status) and the @piecosystem/piui component & layout catalog (Panel, Division, Hover, ScreenFrame, molecules, atoms).
+When prompted by the operator:
+1. If the operator requests a standing or conditional UI behavior (e.g. "Add graphics buttons here during sermon"), output a structured StandingUiRule persisted to disk.
+2. If the operator requests an immediate screen layout or preflight/setup workspace, output a typed JSON UiScreenSpec composed of panels, divisions, hovers, and @piecosystem/piui components.`,
+    priority: 'interactive',
+    tools: ['rundown_current', 'system_whoami', 'voice_status', 'perception_status'],
+    messaging: {
+      canReceiveDirect: true,
+      allowedSenders: ['*'],
+      subscriptions: ['ui.prompt'],
+    },
+    createdAt: '2026-10-30T12:00:00Z',
+    updatedAt: '2026-10-30T12:00:00Z',
+  },
 ];
