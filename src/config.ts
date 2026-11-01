@@ -18,7 +18,7 @@ export function loadConfig(): Config {
     host: process.env.HOST || '0.0.0.0',
     ollamaBaseUrl: (process.env.OLLAMA_BASE_URL || 'http://localhost:11434').replace(/\/+$/, ''),
     defaultModel: process.env.DEFAULT_MODEL || 'llama3.2:latest',
-    mcpServerUrl: (process.env.MCP_SERVER_URL || 'http://localhost:3200/mcp').replace(/\/+$/, ''),
+    mcpServerUrl: (process.env.MCP_SERVER_URL || 'http://localhost:3600/mcp').replace(/\/+$/, ''),
     storageDir: baseDir,
     agentsFilePath: join(baseDir, 'agents.json'),
   };
