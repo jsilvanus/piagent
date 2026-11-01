@@ -1,6 +1,7 @@
 {
   "name": "piagent",
   "version": "0.1.0",
+  "packageManager": "pnpm@11.23.0",
   "description": "Centralized Agent Infrastructure Plane for the Pi Ecosystem: Ollama inference, priority scheduling, agent lifecycle, MCP bridging, and out-of-band preemption.",
   "private": true,
   "type": "module",
@@ -31,5 +32,14 @@
     "@types/node": "^22.13.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
+  },
+  "pi": {
+    "service": "piagent",
+    "displayName": "PiAgent",
+    "layer": "+1 Agentic Plane",
+    "port": 3120,
+    "ports": {},
+    "healthEndpoint": "/api/v1/health",
+    "envPortVar": "PORT"
   }
 }

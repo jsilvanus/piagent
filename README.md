@@ -50,16 +50,16 @@ Centralized Agent Infrastructure Plane for the **Raspberry Pi Production Ecosyst
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Run unit tests
-npm test
+pnpm test
 
 # Build TypeScript to dist/
-npm run build
+pnpm run build
 
 # Start server on default port 3120
-npm start
+pnpm start
 ```
 
 ---
