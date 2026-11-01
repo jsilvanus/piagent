@@ -36,8 +36,8 @@
   "pi": {
     "service": "piagent",
     "displayName": "PiAgent",
-    "layer": "+1 Agentic Plane",
-    "port": 3120,
+    "layer": "Layer 3: Orchestration",
+    "port": 3301,
     "ports": {},
     "healthEndpoint": "/health",
     "envPortVar": "PORT"

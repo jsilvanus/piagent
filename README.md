@@ -58,7 +58,7 @@ pnpm test
 # Build TypeScript to dist/
 pnpm run build
 
-# Start server on default port 3120
+# Start server on default port 3301
 pnpm start
 ```
 
@@ -70,7 +70,7 @@ Environment variables (or `.env`):
 
 | Variable | Default | Description |
 |---|---|---|
-| `PORT` | `3120` | Server listening port |
+| `PORT` | `3301` | Server listening port |
 | `HOST` | `0.0.0.0` | Server listening address |
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama API endpoint |
 | `DEFAULT_MODEL` | `llama3.2:latest` | Fallback model if omitted |

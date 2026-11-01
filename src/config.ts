@@ -14,7 +14,7 @@ export interface Config {
 export function loadConfig(): Config {
   const baseDir = process.env.PIAGENT_CONFIG_DIR || join(homedir(), '.config', 'piagent');
   return {
-    port: parseInt(process.env.PORT || '3120', 10),
+    port: parseInt(process.env.PORT || '3301', 10),
     host: process.env.HOST || '0.0.0.0',
     ollamaBaseUrl: (process.env.OLLAMA_BASE_URL || 'http://localhost:11434').replace(/\/+$/, ''),
     defaultModel: process.env.DEFAULT_MODEL || 'llama3.2:latest',
