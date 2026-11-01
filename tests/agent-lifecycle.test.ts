@@ -82,7 +82,7 @@ test('Agent Lifecycle - stops and interrupts an active agent turn', async () => 
 
   const ollamaClient = new OllamaClient('http://localhost:11434');
   const scheduler = new PriorityScheduler(1);
-  const mcpBridge = new McpBridge('http://localhost:3200/mcp');
+  const mcpBridge = new McpBridge('http://localhost:3600/mcp');
   const sessionManager = new AgentSessionManager(ollamaClient, scheduler, mcpBridge, eventBroker);
 
   const agent = registry.get('copilot')!;

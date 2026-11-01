@@ -40,7 +40,7 @@ Centralized Agent Infrastructure Plane for the **Raspberry Pi Production Ecosyst
 - `POST /api/v1/messages/broadcast` — Broadcast message on topic to all subscribed agents.
 
 ### 4. System & Observability
-- `GET /api/v1/health` — Service health, Ollama connectivity, scheduler queue length.
+- `GET /health` — Service health, Ollama connectivity, scheduler queue length.
 - `GET /api/v1/models` — Installed and actively loaded Ollama models.
 - `GET /api/v1/events` — Real-time Server-Sent Events (SSE) feed of thoughts, tool executions, and state changes.
 
@@ -50,16 +50,16 @@ Centralized Agent Infrastructure Plane for the **Raspberry Pi Production Ecosyst
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Run unit tests
-npm test
+pnpm test
 
 # Build TypeScript to dist/
-npm run build
+pnpm run build
 
-# Start server on default port 3120
-npm start
+# Start server on default port 3301
+pnpm start
 ```
 
 ---
@@ -70,9 +70,9 @@ Environment variables (or `.env`):
 
 | Variable | Default | Description |
 |---|---|---|
-| `PORT` | `3120` | Server listening port |
+| `PORT` | `3301` | Server listening port |
 | `HOST` | `0.0.0.0` | Server listening address |
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama API endpoint |
 | `DEFAULT_MODEL` | `llama3.2:latest` | Fallback model if omitted |
-| `MCP_SERVER_URL` | `http://localhost:3200/mcp` | picontrol-mcp server endpoint |
+| `MCP_SERVER_URL` | `http://localhost:3600/mcp` | picontrol-mcp server endpoint |
 | `PIAGENT_CONFIG_DIR` | `~/.config/piagent` | Data directory for `agents.json` |

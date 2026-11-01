@@ -21,7 +21,7 @@ export async function runTerminalChat() {
   // 1. Check if daemon is running
   let isDaemonRunning = false;
   try {
-    const res = await fetch(`${serverUrl}/api/v1/health`, { signal: AbortSignal.timeout(1000) });
+    const res = await fetch(`${serverUrl}/health`, { signal: AbortSignal.timeout(1000) });
     if (res.ok) isDaemonRunning = true;
   } catch {
     isDaemonRunning = false;

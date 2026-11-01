@@ -8,7 +8,7 @@ export function registerOllamaRoutes(
   scheduler: PriorityScheduler
 ): void {
   // Check Ollama health & status
-  app.get('/api/v1/health', async () => {
+  app.get('/health', async () => {
     const isHealthy = await ollamaClient.isHealthy();
     return {
       service: 'piagent',
