@@ -40,7 +40,7 @@ Centralized Agent Infrastructure Plane for the **Raspberry Pi Production Ecosyst
 - `POST /api/v1/messages/broadcast` — Broadcast message on topic to all subscribed agents.
 
 ### 4. System & Observability
-- `GET /api/v1/health` — Service health, Ollama connectivity, scheduler queue length.
+- `GET /health` — Service health, Ollama connectivity, scheduler queue length.
 - `GET /api/v1/models` — Installed and actively loaded Ollama models.
 - `GET /api/v1/events` — Real-time Server-Sent Events (SSE) feed of thoughts, tool executions, and state changes.
 

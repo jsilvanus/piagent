@@ -39,7 +39,7 @@
     "layer": "+1 Agentic Plane",
     "port": 3120,
     "ports": {},
-    "healthEndpoint": "/api/v1/health",
+    "healthEndpoint": "/health",
     "envPortVar": "PORT"
   }
 }

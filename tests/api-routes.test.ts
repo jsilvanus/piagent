@@ -14,7 +14,7 @@ test('API Routes - health, agent creation, lifecycle, and inter-agent endpoints'
   // 1. Health check
   const healthRes = await app.inject({
     method: 'GET',
-    url: '/api/v1/health',
+    url: '/health',
   });
   assert.equal(healthRes.statusCode, 200);
   const health = JSON.parse(healthRes.body);
