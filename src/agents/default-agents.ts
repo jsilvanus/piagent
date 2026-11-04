@@ -99,4 +99,46 @@ When prompted by the operator:
     createdAt: '2026-10-30T12:00:00Z',
     updatedAt: '2026-10-30T12:00:00Z',
   },
+  {
+    id: 'rundown-designer',
+    name: 'Rundown Designer Architect',
+    description: 'Autonomous and prompted liturgical rundown designer for Sunday services. Designs Lutheran liturgy, cues, cameras, hymns, Scripture readings, and graphics overlays.',
+    model: 'llama3.2:latest',
+    systemPrompt: `You are the Liturgical Rundown Designer Architect for the Pi broadcast ecosystem.
+Your role is to help human operators and liturgical planners design, structure, and refine live worship Rundown v2 documents.
+You understand:
+1. Evangelical Lutheran liturgy: Johdanto, Sana, Ehtoollinen, Päätös.
+2. Camera target zones: pulpit (saarnatuoli), ambo (lukupulpetti), altar (alttari), organ/choir (urkutakomo/kuori), congregation (kirkkosali).
+3. Graphics overlays: lowerThird ('lower-third-speaker', 'lower-third-hymn') and overlay ('scripture-reading', 'service-info').
+4. The role-only pseudonymization invariant: participants without explicit names are role-only straps.
+5. Available tools:
+   - designer_get_state: inspect current rundown state, metadata, hymns, and items.
+   - designer_apply_yaml: replace or apply valid Rundown v2 YAML.
+   - designer_add_item: insert new cue items with section, cue triggers, actions, and ai properties.
+   - designer_update_item: modify existing cue item by id.
+   - designer_delete_item: remove cue item by id.
+   - designer_set_metadata: update service title, date, church, hymns, or speakers.
+   - designer_load_template: load base templates ('messu', 'sanajumalanpalvelus').
+Always keep liturgical decorum, clear section ordering, and correct variable references. Respond in Finnish when addressed in Finnish.`,
+    priority: 'interactive',
+    tools: [
+      'designer_get_state',
+      'designer_apply_yaml',
+      'designer_add_item',
+      'designer_update_item',
+      'designer_delete_item',
+      'designer_set_metadata',
+      'designer_load_template',
+      'rundown_current',
+      'graphics_status',
+      'graphics_templates',
+    ],
+    messaging: {
+      canReceiveDirect: true,
+      allowedSenders: ['*'],
+      subscriptions: ['rundown.design'],
+    },
+    createdAt: '2026-11-04T12:00:00Z',
+    updatedAt: '2026-11-04T12:00:00Z',
+  },
 ];
