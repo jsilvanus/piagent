@@ -38,7 +38,7 @@ export async function createApp(configOverride?: Partial<Config>): Promise<AppCo
   });
 
   // 1. Initialize core services
-  const ollamaClient = new OllamaClient(config.ollamaBaseUrl);
+  const ollamaClient = new OllamaClient(config.ollamaBaseUrl, config.ollamaKeepAlive);
   const scheduler = new PriorityScheduler(1);
   const mcpBridge = new McpBridge(config.mcpServerUrl);
   const eventBroker = new AgentEventBroker();

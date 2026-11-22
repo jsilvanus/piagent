@@ -73,6 +73,7 @@ Environment variables (or `.env`):
 | `PORT` | `3301` | Server listening port |
 | `HOST` | `0.0.0.0` | Server listening address |
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama API endpoint |
+| `PIAGENT_OLLAMA_KEEP_ALIVE` | `15m` | `keep_alive` sent with every Ollama request (how long a model stays loaded; `-1` = forever, `0` = unload). Falls back to `OLLAMA_KEEP_ALIVE` |
 | `DEFAULT_MODEL` | `llama3.2:latest` | Fallback model if omitted |
 | `MCP_SERVER_URL` | `http://localhost:3600/mcp` | picontrol-mcp server endpoint |
 | `PIAGENT_CONFIG_DIR` | `~/.config/piagent` | Data directory for `agents.json` |

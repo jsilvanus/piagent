@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { OllamaClient } from '../src/ollama/client.js';
+import { OllamaClient, normalizeKeepAlive } from '../src/ollama/client.js';
 
 test('OllamaClient - parses model list and tags', async () => {
   const originalFetch = globalThis.fetch;
@@ -96,6 +96,29 @@ test('OllamaClient - executes chat and streaming responses', async () => {
       chunks.push(chunk.contentChunk);
     }
     assert.equal(chunks.join(''), 'Hello operator!');
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test('OllamaClient - sends keep_alive (default 15m, configurable, per call)', async () => {
+  const originalFetch = globalThis.fetch;
+  const bodies: Array<Record<string, unknown>> = [];
+  try {
+    globalThis.fetch = async (_url: string | URL | Request, init?: RequestInit) => {
+      bodies.push(JSON.parse(String(init?.body)));
+      return new Response(
+        JSON.stringify({ model: 'm', created_at: '', message: { role: 'assistant', content: 'x' }, done: true }),
+        { status: 200 }
+      );
+    };
+    const msgs = [{ role: 'user', content: 'hi' }] as never;
+    await new OllamaClient('http://x').chat({ model: 'm', messages: msgs });
+    await new OllamaClient('http://x', '30m').chat({ model: 'm', messages: msgs });
+    await new OllamaClient('http://x', '-1').chat({ model: 'm', messages: msgs });
+    await new OllamaClient('http://x').chat({ model: 'm', messages: msgs, keepAlive: '1h' });
+    assert.deepEqual(bodies.map((b) => b.keep_alive), ['15m', '30m', -1, '1h']);
+    assert.equal(normalizeKeepAlive(''), '15m');
   } finally {
     globalThis.fetch = originalFetch;
   }

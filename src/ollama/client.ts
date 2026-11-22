@@ -1,5 +1,19 @@
 import type { ChatMessage, ToolCall } from '../types.js';
 
+export const DEFAULT_KEEP_ALIVE = '15m';
+
+/**
+ * Turn an env/config value into what Ollama's `keep_alive` accepts: a duration string ("15m"),
+ * or a number of seconds (-1 = forever, 0 = unload at once). Empty/undefined gives the 15 minute default.
+ */
+export function normalizeKeepAlive(value: string | number | undefined | null): string | number {
+  if (value === undefined || value === null) return DEFAULT_KEEP_ALIVE;
+  if (typeof value === 'number') return value;
+  const v = value.trim();
+  if (!v) return DEFAULT_KEEP_ALIVE;
+  return /^-?\d+$/.test(v) ? Number(v) : v;
+}
+
 export interface OllamaModelInfo {
   name: string;
   modified_at: string;
@@ -19,6 +33,8 @@ export interface OllamaChatOptions {
   stream?: boolean;
   format?: 'json' | Record<string, unknown>;
   temperature?: number;
+  /** Overrides the client's keep_alive for this call. */
+  keepAlive?: string | number;
   tools?: unknown[];
   signal?: AbortSignal;
 }
@@ -42,7 +58,11 @@ export interface OllamaChatResponse {
 }
 
 export class OllamaClient {
-  constructor(private readonly baseUrl: string) {}
+  private readonly keepAlive: string | number;
+
+  constructor(private readonly baseUrl: string, keepAlive?: string | number) {
+    this.keepAlive = normalizeKeepAlive(keepAlive);
+  }
 
   /** Check if Ollama server is reachable */
   async isHealthy(): Promise<boolean> {
@@ -85,6 +105,7 @@ export class OllamaClient {
         content: m.content,
       })),
       stream: false,
+      keep_alive: normalizeKeepAlive(options.keepAlive ?? this.keepAlive),
     };
 
     if (options.format) {
@@ -125,6 +146,7 @@ export class OllamaClient {
         content: m.content,
       })),
       stream: true,
+      keep_alive: normalizeKeepAlive(options.keepAlive ?? this.keepAlive),
     };
 
     if (options.format) body.format = options.format;

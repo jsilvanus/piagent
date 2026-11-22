@@ -31,7 +31,7 @@ export async function runTerminalChat() {
   const eventBroker = new AgentEventBroker();
   const messageBus = new AgentMessageBus(eventBroker);
   const registry = new AgentRegistry(config.agentsFilePath, messageBus, eventBroker);
-  const ollamaClient = new OllamaClient(config.ollamaBaseUrl);
+  const ollamaClient = new OllamaClient(config.ollamaBaseUrl, config.ollamaKeepAlive);
   const scheduler = new PriorityScheduler(1);
   const mcpBridge = new McpBridge(config.mcpServerUrl);
   const sessionManager = new AgentSessionManager(ollamaClient, scheduler, mcpBridge, eventBroker);
